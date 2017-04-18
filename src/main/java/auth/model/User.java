@@ -1,6 +1,7 @@
 package auth.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "USER")
+@EntityListeners(UserListener.class)
 public class User {
 	@Override
 	public String toString() {

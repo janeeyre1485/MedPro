@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import auth.dao.UserRepository;
 import auth.model.User;
 import auth.service.UserService;
 import auth.validator.UserValidator;
@@ -18,6 +19,7 @@ public class AppController {
 
 	@Autowired
 	private UserService userService;
+
 
 	@Autowired
 	private UserValidator userValidator;
