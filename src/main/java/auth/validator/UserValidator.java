@@ -1,6 +1,5 @@
 package auth.validator;
 
-
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,9 +13,6 @@ import auth.service.UserService;
 @Component
 public class UserValidator implements Validator {
 
-
-	
-	
 	@Autowired
 	private UserService userService;
 
@@ -28,22 +24,24 @@ public class UserValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		User user = (User) target;
+		boolean browserValidation = true;
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwordConfirm", "NotEmpty");
-		
-		
-		
-		if (userService.findUserByEmail(user.getEmail()) != null) {
-			errors.rejectValue("email", "Email.not.unique");
-		}
+
 		if (!user.getPassword().equals(user.getPasswordConfirm())) {
 			errors.rejectValue("passwordConfirm", "Diff.passwordConfirm");
+			browserValidation = false;
 		}
-		
-		if(!EmailValidator.getInstance().isValid(user.getEmail())){
+
+		if (!EmailValidator.getInstance().isValid(user.getEmail())) {
 			errors.rejectValue("email", "Email.not.correct");
+			browserValidation = false;
+		}
+
+		if (browserValidation && userService.findUserByEmail(user.getEmail()) != null) {
+			errors.rejectValue("email", "Email.not.unique");
 		}
 
 	}

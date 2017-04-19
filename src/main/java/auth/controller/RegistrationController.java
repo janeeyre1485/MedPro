@@ -18,7 +18,7 @@ import auth.validator.UserValidator;
 
 @Controller
 @RequestMapping("/")
-public class AppController {
+public class RegistrationController {
 
 	@Autowired
 	private UserService userService;
@@ -26,20 +26,9 @@ public class AppController {
 	@Autowired
 	private UserValidator userValidator;
 
-	@RequestMapping("/login")
-	public String loginPage(Model model) {
-		return "login";
-	}
-	
 	@InitBinder
-	private void initBinder(WebDataBinder dataBinder){
+	private void initBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(userValidator);
-		
-	}
-
-	@RequestMapping("/")
-	public String homePage(Model model) {
-		return "home";
 	}
 
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
@@ -50,7 +39,7 @@ public class AppController {
 
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	public String doCreateAccount(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
-		
+
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		}
@@ -58,14 +47,5 @@ public class AppController {
 		return "redirect:/login";
 	}
 
-	@RequestMapping("/welcome")
-	public String welcomePage() {
-		return "welcome";
-	}
-	
-	@RequestMapping("/home")
-	public String homePage() {
-		return "home";
-	}
 
 }

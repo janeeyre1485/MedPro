@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Create an account</title>
+<title>Login</title>
 
 
 <link href="static/css/bootstrap.min.css" rel="stylesheet"></link>
@@ -30,6 +30,6 @@
 </head>
 
 <body>
-Here you can login!!
+Here you can login!
 </body>
 </html>
