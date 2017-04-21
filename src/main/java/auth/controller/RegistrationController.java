@@ -17,7 +17,7 @@ import auth.service.UserService;
 import auth.validator.UserValidator;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/registration")
 public class RegistrationController {
 
 	@Autowired
@@ -31,13 +31,13 @@ public class RegistrationController {
 		dataBinder.setValidator(userValidator);
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String createAccount(Model model) {
 		model.addAttribute("user", new User());
 		return "registration";
 	}
 
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public String doCreateAccount(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
@@ -46,6 +46,5 @@ public class RegistrationController {
 		userService.save(user);
 		return "redirect:/login";
 	}
-
 
 }

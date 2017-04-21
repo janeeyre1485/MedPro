@@ -41,16 +41,16 @@
 			</div>
 
 			<div class="form-group">
-				<form:input type="password" path="password" class="form-control"
-					placeholder="Password"></form:input>
+				<form:password path="password" class="form-control"
+					placeholder="Password"></form:password>
 				<div class="has-error">
 					<form:errors path="password" />
 				</div>
 			</div>
 
 			<div class="form-group">
-				<form:input type="password" path="passwordConfirm"
-					class="form-control" placeholder="Confirm your password"></form:input>
+				<form:password path="passwordConfirm" class="form-control"
+					placeholder="Confirm your password"></form:password>
 				<div class="has-error">
 					<form:errors path="passwordConfirm" />
 				</div>

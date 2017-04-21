@@ -24,7 +24,6 @@ public class UserValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		User user = (User) target;
-		boolean browserValidation = true;
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
@@ -32,16 +31,17 @@ public class UserValidator implements Validator {
 
 		if (!user.getPassword().equals(user.getPasswordConfirm())) {
 			errors.rejectValue("passwordConfirm", "Diff.passwordConfirm");
-			browserValidation = false;
+
 		}
 
 		if (!EmailValidator.getInstance().isValid(user.getEmail())) {
 			errors.rejectValue("email", "Email.not.correct");
-			browserValidation = false;
 		}
 
-		if (browserValidation && userService.findUserByEmail(user.getEmail()) != null) {
-			errors.rejectValue("email", "Email.not.unique");
+		if (!errors.hasErrors()) {
+			if (userService.findUserByEmail(user.getEmail()) != null) {
+				errors.rejectValue("email", "Email.not.unique");
+			}
 		}
 
 	}
