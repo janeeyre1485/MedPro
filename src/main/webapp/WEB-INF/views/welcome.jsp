@@ -30,31 +30,7 @@
 </head>
 
 <body>
-	<div class="container">
-
-		<form:form method="POST" action="/login" class="form-signin">
-			<h2 class="form-signin-heading">Login with your account</h2>
-
-			<c:if test="${not empty error}">
-				<div class="aler alert-danger">${error}</div>
-			</c:if>
-			<c:if test="${not empty message}">
-				<div class="alert alert-info">${message}</div>
-			</c:if>
-			<div class="form-group">
-				<input type="text" name="username" class="form-control" placeholder="Email">
-			</div>
-
-			<div class="form-group">
-				<input type="password" name="password" class="form-control" placeholder="Password">
-			</div>
-
-			
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-		</form:form>
-
-	</div>
-	<!-- /container -->
+	Welcome, user!
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
