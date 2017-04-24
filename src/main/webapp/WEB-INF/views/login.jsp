@@ -36,7 +36,7 @@
 			<h2 class="form-signin-heading">Login with your account</h2>
 
 			<c:if test="${not empty error}">
-				<div class="aler alert-danger">${error}</div>
+				<div class="alert alert-danger">${error}</div>
 			</c:if>
 			<c:if test="${not empty message}">
 				<div class="alert alert-info">${message}</div>

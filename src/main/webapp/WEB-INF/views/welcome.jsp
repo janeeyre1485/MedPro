@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Login</title>
+<title>Welcome</title>
 
 
 <link href="static/css/bootstrap.min.css" rel="stylesheet"></link>
@@ -30,7 +30,18 @@
 </head>
 
 <body>
-	Welcome, user!
+	<c:if test="${pageContext.request.userPrincipal.name != null}">
+		<form id="logoutForm" method="POST" action="/logout">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+		</form>
+
+		<h2>
+			Welcome ${pageContext.request.userPrincipal.name} | <a
+				onclick="document.forms['logoutForm'].submit()">Logout</a>
+		</h2>
+
+	</c:if>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
