@@ -13,8 +13,4 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = { "/welcome" })
-	public String welcomePage(Model model) {
-		return "welcome";
-	}
 }
