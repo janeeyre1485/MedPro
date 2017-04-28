@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Login</title>
+<title>Welcome</title>
 
 
 <link href="static/css/bootstrap.min.css" rel="stylesheet"></link>
@@ -30,31 +30,18 @@
 </head>
 
 <body>
-	<div class="container">
+	<c:if test="${pageContext.request.userPrincipal.name != null}">
+		<form id="logoutForm" method="POST" action="/logout">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+		</form>
 
-		<form:form method="POST" action="/login" class="form-signin">
-			<h2 class="form-signin-heading">Login with your account</h2>
+		<h2>
+			Welcome ${pageContext.request.userPrincipal.name} | <a
+				onclick="document.forms['logoutForm'].submit()">Logout</a>
+		</h2>
 
-			<c:if test="${not empty error}">
-				<div class="alert alert-danger">${error}</div>
-			</c:if>
-			<c:if test="${not empty message}">
-				<div class="alert alert-info">${message}</div>
-			</c:if>
-			<div class="form-group">
-				<input type="text" name="username" class="form-control" placeholder="Email">
-			</div>
-
-			<div class="form-group">
-				<input type="password" name="password" class="form-control" placeholder="Password">
-			</div>
-
-			
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-		</form:form>
-
-	</div>
-	<!-- /container -->
+	</c:if>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>

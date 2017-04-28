@@ -12,4 +12,9 @@ public class HomeController {
 	public String homePage(Model model) {
 		return "home";
 	}
+	
+	@RequestMapping(value = { "/welcome" })
+	public String welcomePage(Model model) {
+		return "welcome";
+	}
 }
