@@ -1,15 +1,13 @@
 package auth.security;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import auth.model.User;
 
+@SuppressWarnings("serial")
 public class UserDetailsImpl implements UserDetails {
 
 	private User user;

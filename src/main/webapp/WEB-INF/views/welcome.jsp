@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Login</title>
+<title>Welcome</title>
 
 
 <link href="static/css/bootstrap.min.css" rel="stylesheet"></link>
@@ -47,6 +47,7 @@
 		</c:if>
 
 	</div>
+
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
