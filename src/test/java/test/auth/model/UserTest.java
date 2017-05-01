@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import auth.AuthAppApplication;
 import auth.config.AppConfig;
+import auth.model.User;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -16,6 +17,10 @@ public class UserTest {
 
 	@Test
 	public void test(){
-		System.out.println("Test method");
+		User user = new User();
+		user.setEmail("mail@mail.com");
+		user.setPassword("pass");
+		
+		System.out.println(user);
 	}
 }
