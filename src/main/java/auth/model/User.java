@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "USER")
 @EntityListeners(UserListener.class)
 public class User {
+
+
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", password=" + password + "]";
