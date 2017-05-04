@@ -10,14 +10,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import auth.dao.UserRepository;
 import auth.model.User;
 import auth.service.UserService;
-import auth.service.UserServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
@@ -25,6 +25,7 @@ public class UserServiceTest {
 	private static final String USER_EMAIL = "mail@mail.com";
 	private static final String USER_PASSWORD = "Password1";
 
+	@InjectMocks
 	private UserService mockUserService;
 
 	@Mock
@@ -34,8 +35,7 @@ public class UserServiceTest {
 
 	@Before
 	public void setUp() {
-		mockUserService = new UserServiceImpl();
-		ReflectionTestUtils.setField(mockUserService, "userRepository", mockUserRepository);
+		MockitoAnnotations.initMocks(this);
 
 	}
 
