@@ -32,9 +32,9 @@ import auth.validator.UserValidator;
 
 public class RegistrationControllerTest {
 
-	private static final String USER_EMAIL = "mail@mail.com";
-	private static final String USER_PASSWORD = "Password1";
-	private static final String USER_PASSWORD_CONFIRM = "Password1";
+	private static final String USER_EMAIL_VALID = "mail@mail.com";
+	private static final String USER_PASSWORD_VALID = "Password1";
+	private static final String USER_PASSWORD_CONFIRM_VALID = "Password1";
 
 	private static final String USER_EMAIL_INVALID = "mailmail.com";
 	private static final String USER_PASSWORD_INVALID = "";
@@ -44,10 +44,10 @@ public class RegistrationControllerTest {
 	private RegistrationController registrationController;
 
 	@Mock
-	private UserService userService;
+	private UserService mockUserService;
 
 	@Mock
-	private UserValidator userValidator;
+	private UserValidator mockUserValidator;
 
 	private MockMvc mockMvc;
 
@@ -60,7 +60,7 @@ public class RegistrationControllerTest {
 
 		mockMvc = MockMvcBuilders.standaloneSetup(registrationController).setViewResolvers(viewResolver).build();
 
-		when(userValidator.supports(User.class)).thenReturn(true);
+		when(mockUserValidator.supports(User.class)).thenReturn(true);
 
 	}
 
@@ -76,10 +76,10 @@ public class RegistrationControllerTest {
 	@Test
 	public void testDoCreateAccount_validAccount() throws Exception {
 
-		mockMvc.perform(post("/registration").param("email", USER_EMAIL).param("password", USER_PASSWORD)
-				.param("passwordConfirm", USER_PASSWORD_CONFIRM))
-				.andExpect(model().attribute("user", hasProperty("email", equalTo(USER_EMAIL))))
-				.andExpect(model().attribute("user", hasProperty("password", equalTo(USER_PASSWORD))))
+		mockMvc.perform(post("/registration").param("email", USER_EMAIL_VALID).param("password", USER_PASSWORD_VALID)
+				.param("passwordConfirm", USER_PASSWORD_CONFIRM_VALID))
+				.andExpect(model().attribute("user", hasProperty("email", equalTo(USER_EMAIL_VALID))))
+				.andExpect(model().attribute("user", hasProperty("password", equalTo(USER_PASSWORD_VALID))))
 				.andExpect(redirectedUrl("/login"));
 
 	}
@@ -97,7 +97,7 @@ public class RegistrationControllerTest {
 
 				return null;
 			}
-		}).when(userValidator).validate(any(), any());
+		}).when(mockUserValidator).validate(any(), any());
 
 		mockMvc.perform(post("/registration").param("email", USER_EMAIL_INVALID)
 				.param("password", USER_PASSWORD_INVALID).param("passwordConfirm", USER_PASSWORD_CONFIRM_INVALID))

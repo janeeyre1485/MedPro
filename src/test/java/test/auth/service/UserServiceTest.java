@@ -18,7 +18,6 @@ import auth.dao.UserRepository;
 import auth.model.User;
 import auth.service.UserService;
 import auth.service.UserServiceImpl;
-import auth.validator.UserValidator;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {

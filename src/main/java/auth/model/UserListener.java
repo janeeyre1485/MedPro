@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import auth.service.BeanUtil;
 
 public class UserListener {
-	
+
 	private PasswordEncoder passwordEncoder;
 
 	@PrePersist
