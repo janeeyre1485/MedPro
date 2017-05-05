@@ -6,18 +6,17 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import auth.dao.UserRepository;
 import auth.model.User;
 import auth.service.UserService;
+import auth.service.UserServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
@@ -26,23 +25,15 @@ public class UserServiceTest {
 	private static final String USER_PASSWORD = "Password1";
 
 	@InjectMocks
-	private UserService mockUserService;
+	private UserService userService = new UserServiceImpl();
 
 	@Mock
 	private UserRepository mockUserRepository;
-	
-
-
-	@Before
-	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-
-	}
 
 	@Test
 	public void testCreation() {
 		Assert.assertNotNull(mockUserRepository);
-		Assert.assertNotNull(mockUserService);
+		Assert.assertNotNull(userService);
 
 	}
 
@@ -52,7 +43,7 @@ public class UserServiceTest {
 		user.setEmail(USER_EMAIL);
 		user.setPassword(USER_PASSWORD);
 
-		mockUserService.save(user);
+		userService.save(user);
 
 		ArgumentCaptor<User> userAccountArgument = ArgumentCaptor.forClass(User.class);
 		verify(mockUserRepository, times(1)).save(userAccountArgument.capture());
@@ -73,7 +64,7 @@ public class UserServiceTest {
 
 		when(mockUserRepository.findByEmail(USER_EMAIL)).thenReturn(user);
 
-		User actual = mockUserService.findUserByEmail(USER_EMAIL);
+		User actual = userService.findUserByEmail(USER_EMAIL);
 
 		verify(mockUserRepository, times(1)).findByEmail(USER_EMAIL);
 		verifyNoMoreInteractions(mockUserRepository);

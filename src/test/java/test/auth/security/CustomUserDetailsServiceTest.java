@@ -3,11 +3,11 @@ package test.auth.security;
 import static org.mockito.Mockito.when;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -15,6 +15,7 @@ import auth.dao.UserRepository;
 import auth.model.User;
 import auth.security.CustomUserDetailsService;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CustomUserDetailsServiceTest {
 
 	private static final String EMAIL_NOT_FOUND = "abc";
@@ -26,10 +27,6 @@ public class CustomUserDetailsServiceTest {
 	@InjectMocks
 	private CustomUserDetailsService mockCustomUserDetailsService;
 
-	@Before
-	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-	}
 
 	@Test
 	public void testLoadByEmail() throws Exception{

@@ -44,6 +44,7 @@ public class UserListenerTest {
 		when(mockPasswordEncoder.encode(PASSWORD)).thenReturn(ENCODED_PASSWORD);
 		
 		userListener.onSave(user);
+		
 		Assert.assertEquals(user.getPassword(),ENCODED_PASSWORD);
 	}
 
