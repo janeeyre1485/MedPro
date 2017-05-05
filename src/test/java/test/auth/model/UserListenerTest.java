@@ -20,14 +20,14 @@ public class UserListenerTest {
 	private static final String PASSWORD = "Password";
 	private static final String ENCODED_PASSWORD = "EncodedPassword";
 	
-	private UserListener mockUserListener ;
+	private UserListener userListener ;
 
 	@Mock
 	private PasswordEncoder mockPasswordEncoder;
 	
 	@Before
 	public void setUp(){
-		mockUserListener = new UserListener(){
+		userListener = new UserListener(){
 			@Override
 			public PasswordEncoder getPasswordEncoder(){
 				return mockPasswordEncoder;
@@ -43,7 +43,7 @@ public class UserListenerTest {
 		
 		when(mockPasswordEncoder.encode(PASSWORD)).thenReturn(ENCODED_PASSWORD);
 		
-		mockUserListener.onSave(user);
+		userListener.onSave(user);
 		Assert.assertEquals(user.getPassword(),ENCODED_PASSWORD);
 	}
 

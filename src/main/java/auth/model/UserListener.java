@@ -11,7 +11,8 @@ public class UserListener {
 	private PasswordEncoder passwordEncoder;
 	
 	public PasswordEncoder getPasswordEncoder(){
-		return BeanUtil.getBean(PasswordEncoder.class);	
+		return BeanUtil.getBean(PasswordEncoder.class);
+	
 	}
 
 	@PrePersist

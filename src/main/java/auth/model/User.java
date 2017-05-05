@@ -10,6 +10,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 
+
 @Entity
 @Table(name = "USER")
 @EntityListeners(UserListener.class)

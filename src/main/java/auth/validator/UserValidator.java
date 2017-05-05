@@ -25,14 +25,12 @@ public class UserValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		User user = (User) target;
 		
-
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwordConfirm", "NotEmpty");
 
 		if (!user.getPassword().equals(user.getPasswordConfirm())) {
 			errors.rejectValue("passwordConfirm", "Diff.passwordConfirm");
-
 		}
 
 		if (!EmailValidator.getInstance().isValid(user.getEmail())) {
@@ -40,6 +38,7 @@ public class UserValidator implements Validator {
 		}
 
 		if (!errors.hasErrors()) {
+
 			if (userService.findUserByEmail(user.getEmail()) != null) {
 				errors.rejectValue("email", "Email.not.unique");
 			}
