@@ -1,4 +1,4 @@
-package test.auth.controller;
+package auth.test.unit.controller;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
@@ -18,10 +18,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.Errors;
@@ -30,18 +29,11 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import auth.controller.RegistrationController;
 import auth.model.User;
 import auth.service.UserService;
+import auth.test.TestUtils;
 import auth.validator.UserValidator;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class RegistrationControllerTest {
-
-	private static final String USER_EMAIL_VALID = "mail@mail.com";
-	private static final String USER_PASSWORD_VALID = "Password1";
-	private static final String USER_PASSWORD_CONFIRM_VALID = "Password1";
-
-	private static final String USER_EMAIL_INVALID = "mailmail.com";
-	private static final String USER_PASSWORD_INVALID = "";
-	private static final String USER_PASSWORD_CONFIRM_INVALID = "";
 
 	@InjectMocks
 	private RegistrationController registrationController;
@@ -78,10 +70,10 @@ public class RegistrationControllerTest {
 	@Test
 	public void testDoCreateAccount_validAccount() throws Exception {
 
-		mockMvc.perform(post("/registration").param("email", USER_EMAIL_VALID).param("password", USER_PASSWORD_VALID)
-				.param("passwordConfirm", USER_PASSWORD_CONFIRM_VALID))
-				.andExpect(model().attribute("user", hasProperty("email", equalTo(USER_EMAIL_VALID))))
-				.andExpect(model().attribute("user", hasProperty("password", equalTo(USER_PASSWORD_VALID))))
+		mockMvc.perform(post("/registration").param("email", TestUtils.CORRECT_EMAIL)
+				.param("password", TestUtils.CORRECT_PASSWORD).param("passwordConfirm", TestUtils.CORRECT_PASSWORD))
+				.andExpect(model().attribute("user", hasProperty("email", equalTo(TestUtils.CORRECT_EMAIL))))
+				.andExpect(model().attribute("user", hasProperty("password", equalTo(TestUtils.CORRECT_PASSWORD))))
 				.andExpect(redirectedUrl("/login"));
 
 	}
@@ -101,9 +93,12 @@ public class RegistrationControllerTest {
 			}
 		}).when(mockUserValidator).validate(any(), any());
 
-		mockMvc.perform(post("/registration").param("email", USER_EMAIL_INVALID)
-				.param("password", USER_PASSWORD_INVALID).param("passwordConfirm", USER_PASSWORD_CONFIRM_INVALID))
-				.andExpect(view().name("registration")).andExpect(model().attributeHasFieldErrors("user", "email"))
+		mockMvc.perform(post("/registration")
+						.param("email", TestUtils.INCORRECT_EMAIL)
+						.param("password", TestUtils.INCORRECT_PASSWORD)
+						.param("passwordConfirm", TestUtils.CORRECT_PASSWORD))
+				.andExpect(view().name("registration"))
+				.andExpect(model().attributeHasFieldErrors("user", "email"))
 				.andExpect(model().attributeHasFieldErrors("user", "password"))
 				.andExpect(model().attributeHasFieldErrors("user", "passwordConfirm"));
 	}

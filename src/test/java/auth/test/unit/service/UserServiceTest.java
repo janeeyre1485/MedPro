@@ -1,4 +1,4 @@
-package test.auth.service;
+package auth.test.unit.service;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -17,12 +17,10 @@ import auth.dao.UserRepository;
 import auth.model.User;
 import auth.service.UserService;
 import auth.service.UserServiceImpl;
+import auth.test.TestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
-
-	private static final String USER_EMAIL = "mail@mail.com";
-	private static final String USER_PASSWORD = "Password1";
 
 	@InjectMocks
 	private UserService userService = new UserServiceImpl();
@@ -40,8 +38,8 @@ public class UserServiceTest {
 	@Test
 	public void save() {
 		User user = new User();
-		user.setEmail(USER_EMAIL);
-		user.setPassword(USER_PASSWORD);
+		user.setEmail(TestUtils.CORRECT_EMAIL);
+		user.setPassword(TestUtils.CORRECT_PASSWORD);
 
 		userService.save(user);
 
@@ -51,22 +49,22 @@ public class UserServiceTest {
 
 		User createdUserAccount = userAccountArgument.getValue();
 
-		Assert.assertEquals(createdUserAccount.getEmail(), USER_EMAIL);
-		Assert.assertEquals(createdUserAccount.getPassword(), USER_PASSWORD);
+		Assert.assertEquals(createdUserAccount.getEmail(), TestUtils.CORRECT_EMAIL);
+		Assert.assertEquals(createdUserAccount.getPassword(), TestUtils.CORRECT_PASSWORD);
 
 	}
 
 	@Test
 	public void findByEmail() {
 		User user = new User();
-		user.setEmail(USER_EMAIL);
-		user.setPassword(USER_PASSWORD);
+		user.setEmail(TestUtils.CORRECT_EMAIL);
+		user.setPassword(TestUtils.CORRECT_PASSWORD);
 
-		when(mockUserRepository.findByEmail(USER_EMAIL)).thenReturn(user);
+		when(mockUserRepository.findByEmail(TestUtils.CORRECT_EMAIL)).thenReturn(user);
 
-		User actual = userService.findUserByEmail(USER_EMAIL);
+		User actual = userService.findUserByEmail(TestUtils.CORRECT_EMAIL);
 
-		verify(mockUserRepository, times(1)).findByEmail(USER_EMAIL);
+		verify(mockUserRepository, times(1)).findByEmail(TestUtils.CORRECT_EMAIL);
 		verifyNoMoreInteractions(mockUserRepository);
 
 		Assert.assertEquals(user.getEmail(), actual.getEmail());

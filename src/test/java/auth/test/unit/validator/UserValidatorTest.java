@@ -1,4 +1,4 @@
-package test.auth.validator;
+package auth.test.unit.validator;
 
 import static org.mockito.Mockito.when;
 
@@ -15,6 +15,7 @@ import org.springframework.validation.Errors;
 
 import auth.model.User;
 import auth.service.UserService;
+import auth.test.TestUtils;
 import auth.validator.UserValidator;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -38,9 +39,9 @@ public class UserValidatorTest {
 	@Test
 	public void testValidate_validUser() {
 
-		user.setEmail("mail@mail.com");
-		user.setPassword("password");
-		user.setPasswordConfirm("password");
+		user.setEmail(TestUtils.CORRECT_EMAIL);
+		user.setPassword(TestUtils.CORRECT_PASSWORD);
+		user.setPasswordConfirm(TestUtils.CORRECT_PASSWORD);
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
@@ -52,9 +53,9 @@ public class UserValidatorTest {
 	@Test
 	public void testValidate_invalidEmail() {
 
-		user.setEmail("mailmail.com");
-		user.setPassword("password");
-		user.setPasswordConfirm("password");
+		user.setEmail(TestUtils.INCORRECT_EMAIL);
+		user.setPassword(TestUtils.CORRECT_PASSWORD);
+		user.setPasswordConfirm(TestUtils.CORRECT_PASSWORD);
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
@@ -62,65 +63,66 @@ public class UserValidatorTest {
 		Assert.assertThat(errors.getFieldError("email").toString(), CoreMatchers.containsString("Email.not.correct"));
 
 	}
-	
+
 	@Test
 	public void testValidate_notEqualPasswords() {
 
-		user.setEmail("mailmail.com");
-		user.setPassword("password");
-		user.setPasswordConfirm("password1");
+		user.setEmail(TestUtils.INCORRECT_EMAIL);
+		user.setPassword(TestUtils.CORRECT_PASSWORD);
+		user.setPasswordConfirm(TestUtils.INCORRECT_PASSWORD);
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
 
-		Assert.assertThat(errors.getFieldError("passwordConfirm").toString(), CoreMatchers.containsString("Diff.passwordConfirm"));
+		Assert.assertThat(errors.getFieldError("passwordConfirm").toString(),
+				CoreMatchers.containsString("Diff.passwordConfirm"));
 	}
-	
+
 	@Test
 	public void testValidate_emptyEmail() {
 
-		user.setEmail("");
-		user.setPassword("password");
-		user.setPasswordConfirm("password");
+		user.setEmail(TestUtils.EMPTY_STRING);
+		user.setPassword(TestUtils.CORRECT_PASSWORD);
+		user.setPasswordConfirm(TestUtils.CORRECT_PASSWORD);
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
 
 		Assert.assertThat(errors.getFieldError("email").toString(), CoreMatchers.containsString("NotEmpty"));
 	}
-	
+
 	@Test
 	public void testValidate_emptyPassword() {
 
-		user.setEmail("mail@mail.com");
-		user.setPassword("");
-		user.setPasswordConfirm("password");
+		user.setEmail(TestUtils.CORRECT_EMAIL);
+		user.setPassword(TestUtils.EMPTY_STRING);
+		user.setPasswordConfirm(TestUtils.CORRECT_PASSWORD);
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
 
 		Assert.assertThat(errors.getFieldError("password").toString(), CoreMatchers.containsString("NotEmpty"));
 	}
-	
+
 	@Test
 	public void testValidate_emptyPasswordConfirm() {
 
-		user.setEmail("mail@mail.com");
-		user.setPassword("password");
-		user.setPasswordConfirm("");
+		user.setEmail(TestUtils.CORRECT_EMAIL);
+		user.setPassword(TestUtils.CORRECT_PASSWORD);
+		user.setPasswordConfirm(TestUtils.EMPTY_STRING);
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
 
 		Assert.assertThat(errors.getFieldError("passwordConfirm").toString(), CoreMatchers.containsString("NotEmpty"));
 	}
-	
+
 	@Test
 	public void testValidate_notUniqueEmail() {
 
-		user.setEmail("mail@mail.com");
-		user.setPassword("password");
-		user.setPasswordConfirm("password");
+		user.setEmail(TestUtils.CORRECT_EMAIL);
+		user.setPassword(TestUtils.CORRECT_PASSWORD);
+		user.setPasswordConfirm(TestUtils.CORRECT_PASSWORD);
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(user);
 		userValidator.validate(user, errors);

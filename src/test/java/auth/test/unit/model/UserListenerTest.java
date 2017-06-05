@@ -1,4 +1,4 @@
-package test.auth.model;
+package auth.test.unit.model;
 
 
 import static org.mockito.Mockito.when;
@@ -13,13 +13,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import auth.model.User;
 import auth.model.UserListener;
+import auth.test.TestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserListenerTest {
 
-	private static final String PASSWORD = "Password";
-	private static final String ENCODED_PASSWORD = "EncodedPassword";
-	
+
 	private UserListener userListener ;
 
 	@Mock
@@ -38,14 +37,14 @@ public class UserListenerTest {
 	@Test
 	public void testOnSave() throws Exception {
 		User user = new User();
-		user.setEmail("mail@mail.com");
-		user.setPassword(PASSWORD);
+		user.setEmail(TestUtils.CORRECT_EMAIL);
+		user.setPassword(TestUtils.CORRECT_PASSWORD);
 		
-		when(mockPasswordEncoder.encode(PASSWORD)).thenReturn(ENCODED_PASSWORD);
+		when(mockPasswordEncoder.encode(TestUtils.CORRECT_PASSWORD)).thenReturn(TestUtils.ENCODED_PASSWORD);
 		
 		userListener.onSave(user);
 		
-		Assert.assertEquals(user.getPassword(),ENCODED_PASSWORD);
+		Assert.assertEquals(user.getPassword(),TestUtils.ENCODED_PASSWORD);
 	}
 
 }

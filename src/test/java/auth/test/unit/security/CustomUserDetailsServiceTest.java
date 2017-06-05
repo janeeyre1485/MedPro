@@ -1,4 +1,4 @@
-package test.auth.security;
+package auth.test.unit.security;
 
 import static org.mockito.Mockito.when;
 
@@ -14,12 +14,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import auth.dao.UserRepository;
 import auth.model.User;
 import auth.security.CustomUserDetailsService;
+import auth.test.TestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomUserDetailsServiceTest {
-
-	private static final String EMAIL_NOT_FOUND = "abc";
-	private static final String EMAIL_FOUND = "user@test.com";
 
 	@Mock
 	private UserRepository mockUserRepository;
@@ -27,22 +25,21 @@ public class CustomUserDetailsServiceTest {
 	@InjectMocks
 	private CustomUserDetailsService mockCustomUserDetailsService;
 
-
 	@Test
-	public void testLoadByEmail() throws Exception{
+	public void testLoadByEmail() throws Exception {
 		User user = new User();
-		user.setEmail(EMAIL_FOUND);
-		
-		when(mockUserRepository.findByEmail(EMAIL_FOUND)).thenReturn(user);
-		UserDetails actual = mockCustomUserDetailsService.loadUserByUsername(EMAIL_FOUND);
-		
-		Assert.assertEquals(actual.getUsername(), EMAIL_FOUND);
+		user.setEmail(TestUtils.EMAIL_FOUND);
+
+		when(mockUserRepository.findByEmail(TestUtils.EMAIL_FOUND)).thenReturn(user);
+		UserDetails actual = mockCustomUserDetailsService.loadUserByUsername(TestUtils.EMAIL_FOUND);
+
+		Assert.assertEquals(actual.getUsername(), TestUtils.EMAIL_FOUND);
 	}
 
 	@Test(expected = UsernameNotFoundException.class)
 	public void testLoadByEmail_emailNotFound_throwsException() throws Exception {
-		when(mockUserRepository.findByEmail(EMAIL_NOT_FOUND)).thenReturn(null);
-		mockCustomUserDetailsService.loadUserByUsername(EMAIL_NOT_FOUND);
+		when(mockUserRepository.findByEmail(TestUtils.EMAIL_NOT_FOUND)).thenReturn(null);
+		mockCustomUserDetailsService.loadUserByUsername(TestUtils.EMAIL_NOT_FOUND);
 
 	}
 }
