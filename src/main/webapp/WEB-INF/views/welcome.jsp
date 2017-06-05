@@ -30,18 +30,24 @@
 </head>
 
 <body>
-	<c:if test="${pageContext.request.userPrincipal.name != null}">
-		<form id="logoutForm" method="POST" action="/logout">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-		</form>
 
-		<h2>
-			Welcome ${pageContext.request.userPrincipal.name} | <a
-				onclick="document.forms['logoutForm'].submit()">Logout</a>
-		</h2>
+	<div class="container">
 
-	</c:if>
+		<c:if test="${pageContext.request.userPrincipal.name != null}">
+			<form id="logoutForm" method="POST" action="/logout">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+			</form>
+
+			<h4>
+				Welcome ${pageContext.request.userPrincipal.name} | <a
+					onclick="document.forms['logoutForm'].submit()">Logout</a>
+			</h4>
+
+		</c:if>
+
+	</div>
+
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
