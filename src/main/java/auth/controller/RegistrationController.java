@@ -21,10 +21,10 @@ import auth.validator.UserValidator;
 public class RegistrationController {
 
 	@Autowired
-	private UserService userService;
-
-	@Autowired
 	private UserValidator userValidator;
+	
+	@Autowired
+	private UserService userService;
 
 	@InitBinder
 	private void initBinder(WebDataBinder dataBinder) {

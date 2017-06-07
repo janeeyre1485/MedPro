@@ -10,10 +10,13 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 
+
 @Entity
 @Table(name = "USER")
 @EntityListeners(UserListener.class)
 public class User {
+
+
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", password=" + password + "]";
@@ -63,4 +66,8 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+	
+	
 }
