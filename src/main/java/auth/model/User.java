@@ -1,5 +1,6 @@
 package auth.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,7 @@ public class User {
 	private Long id;
 
 	@NotNull
+	@Column(unique = true)
 	private String email;
 
 	@NotNull
@@ -34,6 +36,16 @@ public class User {
 	
 	@Transient
 	private String passwordConfirm;
+	
+	public User() {
+		super();
+	}
+
+	public User(String email, String password, String passwordConfirm) {
+		this.email = email;
+		this.password = password;
+		this.passwordConfirm = passwordConfirm;
+	}
 
 	public String getPasswordConfirm() {
 		return passwordConfirm;
