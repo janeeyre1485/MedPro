@@ -28,9 +28,7 @@ public class PersistenceTest {
 	@Test
 	public void testSave_validUser() {
 
-		User user = new User();
-		user.setEmail(TestUtils.CORRECT_EMAIL);
-		user.setPassword(TestUtils.CORRECT_PASSWORD);
+		User user = new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
 
 		userRepository.save(user);
 
@@ -42,9 +40,7 @@ public class PersistenceTest {
 
 	@Test
 	public void testEncodedPassword() {
-		User user = new User();
-		user.setEmail(TestUtils.CORRECT_EMAIL);
-		user.setPassword(TestUtils.CORRECT_PASSWORD);
+		User user = new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
 
 		userRepository.save(user);
 
@@ -54,16 +50,12 @@ public class PersistenceTest {
 
 	@Test(expected = DataIntegrityViolationException.class)
 	public void testSave_emailNotUnique() {
-		User user = new User();
-		user.setEmail(TestUtils.CORRECT_EMAIL);
-		user.setPassword(TestUtils.CORRECT_PASSWORD);
+		User user = new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
 
 		userRepository.save(user);
 
-		User user1 = new User();
-		user1.setEmail(TestUtils.CORRECT_EMAIL);
-		user1.setPassword(TestUtils.CORRECT_PASSWORD);
-		
+		User user1 = new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
+
 		userRepository.save(user1);
 
 	}

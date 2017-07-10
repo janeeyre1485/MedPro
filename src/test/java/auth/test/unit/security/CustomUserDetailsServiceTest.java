@@ -27,8 +27,7 @@ public class CustomUserDetailsServiceTest {
 
 	@Test
 	public void testLoadByEmail() throws Exception {
-		User user = new User();
-		user.setEmail(TestUtils.EMAIL_FOUND);
+		User user = new User(TestUtils.EMAIL_FOUND, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
 
 		when(mockUserRepository.findByEmail(TestUtils.EMAIL_FOUND)).thenReturn(user);
 		UserDetails actual = mockCustomUserDetailsService.loadUserByUsername(TestUtils.EMAIL_FOUND);

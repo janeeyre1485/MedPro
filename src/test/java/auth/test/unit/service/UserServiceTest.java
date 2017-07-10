@@ -37,9 +37,7 @@ public class UserServiceTest {
 
 	@Test
 	public void save() {
-		User user = new User();
-		user.setEmail(TestUtils.CORRECT_EMAIL);
-		user.setPassword(TestUtils.CORRECT_PASSWORD);
+		User user = new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
 
 		userService.save(user);
 
@@ -56,9 +54,7 @@ public class UserServiceTest {
 
 	@Test
 	public void findByEmail() {
-		User user = new User();
-		user.setEmail(TestUtils.CORRECT_EMAIL);
-		user.setPassword(TestUtils.CORRECT_PASSWORD);
+		User user = new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
 
 		when(mockUserRepository.findByEmail(TestUtils.CORRECT_EMAIL)).thenReturn(user);
 

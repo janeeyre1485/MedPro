@@ -32,16 +32,13 @@ public class UserValidatorTest {
 
 	@Before
 	public void setUp() {
-		user = new User();
+
 		errors = new BeanPropertyBindingResult(user, "user");
 	}
 
 	@Test
 	public void testValidate_validUser() {
-
-		user.setEmail(TestUtils.CORRECT_EMAIL);
-		user.setPassword(TestUtils.CORRECT_PASSWORD);
-		user.setPasswordConfirm(TestUtils.CORRECT_PASSWORD);
+		User user = new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
@@ -52,10 +49,7 @@ public class UserValidatorTest {
 
 	@Test
 	public void testValidate_invalidEmail() {
-
-		user.setEmail(TestUtils.INCORRECT_EMAIL);
-		user.setPassword(TestUtils.CORRECT_PASSWORD);
-		user.setPasswordConfirm(TestUtils.CORRECT_PASSWORD);
+		User user = new User(TestUtils.INCORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
@@ -67,9 +61,7 @@ public class UserValidatorTest {
 	@Test
 	public void testValidate_notEqualPasswords() {
 
-		user.setEmail(TestUtils.INCORRECT_EMAIL);
-		user.setPassword(TestUtils.CORRECT_PASSWORD);
-		user.setPasswordConfirm(TestUtils.INCORRECT_PASSWORD);
+		User user = new User(TestUtils.INCORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.INCORRECT_PASSWORD);
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
@@ -81,9 +73,7 @@ public class UserValidatorTest {
 	@Test
 	public void testValidate_emptyEmail() {
 
-		user.setEmail(TestUtils.EMPTY_STRING);
-		user.setPassword(TestUtils.CORRECT_PASSWORD);
-		user.setPasswordConfirm(TestUtils.CORRECT_PASSWORD);
+		User user = new User(TestUtils.EMPTY_STRING, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
@@ -94,9 +84,7 @@ public class UserValidatorTest {
 	@Test
 	public void testValidate_emptyPassword() {
 
-		user.setEmail(TestUtils.CORRECT_EMAIL);
-		user.setPassword(TestUtils.EMPTY_STRING);
-		user.setPasswordConfirm(TestUtils.CORRECT_PASSWORD);
+		User user = new User(TestUtils.CORRECT_EMAIL, TestUtils.EMPTY_STRING, TestUtils.CORRECT_PASSWORD);
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
@@ -106,11 +94,7 @@ public class UserValidatorTest {
 
 	@Test
 	public void testValidate_emptyPasswordConfirm() {
-
-		user.setEmail(TestUtils.CORRECT_EMAIL);
-		user.setPassword(TestUtils.CORRECT_PASSWORD);
-		user.setPasswordConfirm(TestUtils.EMPTY_STRING);
-
+		User user = new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.EMPTY_STRING);
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
 
@@ -120,9 +104,7 @@ public class UserValidatorTest {
 	@Test
 	public void testValidate_notUniqueEmail() {
 
-		user.setEmail(TestUtils.CORRECT_EMAIL);
-		user.setPassword(TestUtils.CORRECT_PASSWORD);
-		user.setPasswordConfirm(TestUtils.CORRECT_PASSWORD);
+		User user = new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(user);
 		userValidator.validate(user, errors);
