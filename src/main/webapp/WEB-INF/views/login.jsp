@@ -15,8 +15,8 @@
 <title>Login</title>
 
 
-<link href="static/css/bootstrap.min.css" rel="stylesheet"></link>
-<link href="static/css/commons.css" rel="stylesheet"></link>
+<link href="/static/css/bootstrap.min.css" rel="stylesheet"></link>
+<link href="/static/css/commons.css" rel="stylesheet"></link>
 
 
 

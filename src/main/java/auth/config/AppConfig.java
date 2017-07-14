@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan(basePackages = "auth")
 public class AppConfig extends WebMvcConfigurerAdapter {
+
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 
@@ -27,4 +28,5 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
 	}
+
 }

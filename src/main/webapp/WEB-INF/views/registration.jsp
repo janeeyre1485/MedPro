@@ -15,8 +15,8 @@
 <title>Create an account</title>
 
 
-<link href="static/css/bootstrap.min.css" rel="stylesheet"></link>
-<link href="static/css/commons.css" rel="stylesheet"></link>
+<link href="/static/css/bootstrap.min.css" rel="stylesheet"></link>
+<link href="/static/css/commons.css" rel="stylesheet"></link>
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>

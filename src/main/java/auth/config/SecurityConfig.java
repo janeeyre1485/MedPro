@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService);
 		auth.authenticationProvider(authenticationProvider());
-		
+
 	}
 
 	@Bean
@@ -45,17 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests()
-				.antMatchers("/welcome")
-				.authenticated()
-				.and()
-			.formLogin()
-				.loginPage("/login")
-				.permitAll()
-				.defaultSuccessUrl("/welcome")
-				.and()
-			.logout()
-				.permitAll();
+		http.authorizeRequests().antMatchers("/welcome").authenticated().and().authorizeRequests()
+				.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')").and().formLogin().loginPage("/login")
+				.permitAll().defaultSuccessUrl("/welcome").and().logout().permitAll();
 	}
 }

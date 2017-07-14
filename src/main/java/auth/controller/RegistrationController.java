@@ -25,7 +25,7 @@ public class RegistrationController {
 	
 	@Autowired
 	private UserService userService;
-
+	
 	@InitBinder
 	private void initBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(userValidator);
@@ -43,6 +43,7 @@ public class RegistrationController {
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		}
+		userService.addRoleToUser(user, "ROLE_USER");
 		userService.save(user);
 		return "redirect:/login";
 	}
