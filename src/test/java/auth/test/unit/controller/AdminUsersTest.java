@@ -13,15 +13,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import auth.controller.WelcomeController;
+import auth.controller.AdminUsersController;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class WelcomeControllerTest {
+public class AdminUsersTest {
 
 	@Autowired
-	private WelcomeController welcomeController;
-	
+	private AdminUsersController adminUsersController;
+
 	private MockMvc mockMvc;
 
 	@Before
@@ -30,12 +30,12 @@ public class WelcomeControllerTest {
 		viewResolver.setPrefix("/WEB-INF/jsp/view/");
 		viewResolver.setSuffix(".jsp");
 
-		mockMvc = MockMvcBuilders.standaloneSetup(welcomeController).setViewResolvers(viewResolver).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(adminUsersController).setViewResolvers(viewResolver).build();
 	}
 	
 	@Test
-	public void testWelcomePage() throws Exception{
-		mockMvc.perform(get("/welcome"))
-		.andExpect(view().name("welcome"));
+	public void testAdminUsersPage() throws Exception{
+		mockMvc.perform(get("/admin/users/")).andExpect(view().name("admin"));
 	}
+
 }

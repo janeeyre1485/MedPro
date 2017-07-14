@@ -28,7 +28,6 @@
 					<form:options items="${roles}" itemValue="id" itemLabel="name" ></form:options>
 				</form:select>
 			</div>
-
 			<button class="btn btn-lg btn-primary" type="submit">Save</button>
 		</form:form>
 		</div>

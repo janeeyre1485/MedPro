@@ -137,7 +137,29 @@
 		</dependency>
 
 	</dependencies>
-
+	<repositories>
+		<repository>
+			<id>codehausSnapshots</id>
+			<name>Codehaus Snapshots</name>
+			<releases>
+				<enabled>false</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<url>http://snapshots.maven.codehaus.org/maven2</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>acme-nexus-releases</id>
+			<name>acme nexus</name>
+			<url>https://nexus.acme.net/content/repositories/releases</url>
+		</repository>
+	</repositories>
 	<build>
 		<plugins>
 			<plugin>
