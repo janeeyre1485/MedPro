@@ -33,7 +33,7 @@ import auth.test.TestUtils;
 import auth.validator.UserValidator;
 
 @RunWith(MockitoJUnitRunner.class)
-public class RegistrationControllerTest {
+public class RegistrationControllerUnitTest {
 
 	@InjectMocks
 	private RegistrationController registrationController;

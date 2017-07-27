@@ -38,7 +38,7 @@ public class UserValidator implements Validator {
 		}
 
 		if (!errors.hasErrors()) {
-
+			
 			if (userService.findUserByEmail(user.getEmail()) != null) {
 				errors.rejectValue("email", "Email.not.unique");
 			}

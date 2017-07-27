@@ -22,10 +22,10 @@ public class RegistrationController {
 
 	@Autowired
 	private UserValidator userValidator;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@InitBinder
 	private void initBinder(WebDataBinder dataBinder) {
 		dataBinder.setValidator(userValidator);
@@ -33,6 +33,8 @@ public class RegistrationController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String createAccount(Model model) {
+		User user = new User();
+		userService.addRoleToUser(user, "ROLE_USER");
 		model.addAttribute("user", new User());
 		return "registration";
 	}
@@ -43,7 +45,7 @@ public class RegistrationController {
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		}
-		userService.addRoleToUser(user, "ROLE_USER");
+
 		userService.save(user);
 		return "redirect:/login";
 	}

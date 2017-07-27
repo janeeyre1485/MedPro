@@ -23,7 +23,7 @@ import auth.test.TestUtils;
 @RunWith(SpringRunner.class)
 @Transactional
 @SpringBootTest
-public class RegistrationTest {
+public class RegistrationIntegrationTest {
 
 	@Autowired
 	private UserService userService;
@@ -73,7 +73,6 @@ public class RegistrationTest {
 
 	@Test
 	public void registerTest_emailNotUnique() throws Exception {
-
 		userService.save(new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD));
 
 		mockMvc.perform(post("/registration").param("email", TestUtils.CORRECT_EMAIL)

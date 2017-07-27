@@ -9,5 +9,7 @@ public class TestUtils {
 	public static final String INCORRECT_EMAIL = "incorrectemail.com";
 	public static final String INCORRECT_PASSWORD = "password1";
 	public static final String EMPTY_STRING = "";
+	public static final Long USER_ID = (long) 7;
+	public static final Long ROLE_ID = (long) 1; 
 	
 }
