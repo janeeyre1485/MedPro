@@ -33,8 +33,7 @@ public class RegistrationController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String createAccount(Model model) {
-		User user = new User();
-		userService.addRoleToUser(user, "ROLE_USER");
+
 		model.addAttribute("user", new User());
 		return "registration";
 	}

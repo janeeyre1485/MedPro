@@ -4,7 +4,6 @@ import static org.mockito.Mockito.when;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -24,21 +23,13 @@ public class UserValidatorTest {
 	@InjectMocks
 	private UserValidator userValidator;
 
-	private User user;
-	private Errors errors;
-
 	@Mock
 	private UserService mockUserService;
-
-	@Before
-	public void setUp() {
-
-		errors = new BeanPropertyBindingResult(user, "user");
-	}
 
 	@Test
 	public void testValidate_validUser() {
 		User user = new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
+		Errors errors = new BeanPropertyBindingResult(user, "user");
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
@@ -50,6 +41,7 @@ public class UserValidatorTest {
 	@Test
 	public void testValidate_invalidEmail() {
 		User user = new User(TestUtils.INCORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
+		Errors errors = new BeanPropertyBindingResult(user, "user");
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
@@ -62,6 +54,7 @@ public class UserValidatorTest {
 	public void testValidate_notEqualPasswords() {
 
 		User user = new User(TestUtils.INCORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.INCORRECT_PASSWORD);
+		Errors errors = new BeanPropertyBindingResult(user, "user");
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
@@ -74,6 +67,7 @@ public class UserValidatorTest {
 	public void testValidate_emptyEmail() {
 
 		User user = new User(TestUtils.EMPTY_STRING, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
+		Errors errors = new BeanPropertyBindingResult(user, "user");
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
@@ -85,6 +79,7 @@ public class UserValidatorTest {
 	public void testValidate_emptyPassword() {
 
 		User user = new User(TestUtils.CORRECT_EMAIL, TestUtils.EMPTY_STRING, TestUtils.CORRECT_PASSWORD);
+		Errors errors = new BeanPropertyBindingResult(user, "user");
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
@@ -95,6 +90,8 @@ public class UserValidatorTest {
 	@Test
 	public void testValidate_emptyPasswordConfirm() {
 		User user = new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.EMPTY_STRING);
+		Errors errors = new BeanPropertyBindingResult(user, "user");
+
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(null);
 		userValidator.validate(user, errors);
 
@@ -105,6 +102,7 @@ public class UserValidatorTest {
 	public void testValidate_notUniqueEmail() {
 
 		User user = new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD, TestUtils.CORRECT_PASSWORD);
+		Errors errors = new BeanPropertyBindingResult(user, "user");
 
 		when(mockUserService.findUserByEmail(user.getEmail())).thenReturn(user);
 		userValidator.validate(user, errors);
