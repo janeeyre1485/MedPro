@@ -13,15 +13,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import auth.controller.HomeController;
+import auth.controller.WelcomeController;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class HomeControllerTest {
+public class WelcomeUnitTest {
 
 	@Autowired
-	private HomeController homeController;
-
+	private WelcomeController welcomeController;
+	
 	private MockMvc mockMvc;
 
 	@Before
@@ -30,14 +30,12 @@ public class HomeControllerTest {
 		viewResolver.setPrefix("/WEB-INF/jsp/view/");
 		viewResolver.setSuffix(".jsp");
 
-		mockMvc = MockMvcBuilders.standaloneSetup(homeController).setViewResolvers(viewResolver).build();
-
+		mockMvc = MockMvcBuilders.standaloneSetup(welcomeController).setViewResolvers(viewResolver).build();
 	}
-
+	
 	@Test
-	public void testHomePage() throws Exception {
-		mockMvc.perform(get("/")).andExpect(view().name("home"));
-
-		mockMvc.perform(get("/home")).andExpect(view().name("home"));
+	public void testWelcomePage() throws Exception{
+		mockMvc.perform(get("/welcome"))
+		.andExpect(view().name("welcome"));
 	}
 }

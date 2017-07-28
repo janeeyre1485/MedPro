@@ -23,7 +23,7 @@ import auth.test.TestUtils;
 @RunWith(SpringRunner.class)
 @Transactional
 @SpringBootTest
-public class LoginTest {
+public class LoginIntegrationTest {
 
 	@Autowired
 	private WebApplicationContext context;

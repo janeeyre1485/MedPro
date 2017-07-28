@@ -1,8 +1,9 @@
 package auth.test.integration.controller;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Before;
@@ -16,20 +17,16 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import auth.model.User;
-import auth.service.UserService;
 import auth.test.TestUtils;
 
 @RunWith(SpringRunner.class)
-@Transactional
 @SpringBootTest
-public class HomeTest {
+@Transactional
+public class WelcomeIntegrationTest {
 
 	@Autowired
 	private WebApplicationContext context;
 
-	@Autowired
-	private UserService userService;
 
 	private MockMvc mockMvc;
 
@@ -40,16 +37,16 @@ public class HomeTest {
 
 	@Test
 	public void welcomeTest_authorizedUser() throws Exception {
-		userService.save(new User(TestUtils.CORRECT_EMAIL, TestUtils.CORRECT_PASSWORD,TestUtils.CORRECT_PASSWORD));
-		mockMvc.perform(post("/login")
-				.param("username", TestUtils.CORRECT_EMAIL)
-				.param("password", TestUtils.CORRECT_PASSWORD));
-		mockMvc.perform(get("/home")).andExpect(status().isOk());
+
+		mockMvc.perform(get("/welcome")
+				.with(user(TestUtils.CORRECT_EMAIL)
+				.password(TestUtils.CORRECT_PASSWORD)))
+				.andExpect(status().isOk());
 	}
 
 	@Test
 	public void welcomeTest_unauthorizedUser() throws Exception {
 
-		mockMvc.perform(get("/home")).andExpect(status().isOk());
+		mockMvc.perform(get("/welcome")).andExpect(unauthenticated());
 	}
 }
